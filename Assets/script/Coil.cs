@@ -23,8 +23,8 @@ public class Coil : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		const float maxforcerange = 3f; //引力が及ぶ最大距離
-		const float maxforce = 20f; //最大引力
+		const float maxforce = 1.5f; //磁力係数
+		const float coilradius = 0.1f;
 		GameObject ball;
 		Vector2 balltocoil;
 		Vector2 direction;
@@ -38,7 +38,7 @@ public class Coil : MonoBehaviour {
 			balltocoil = this.transform.position - ball.transform.position;
 			direction = balltocoil.normalized;
 
-			force = (maxforcerange - balltocoil.magnitude) * maxforce;
+			force = maxforce / Mathf.Pow (balltocoil.magnitude + coilradius, 2f);
 			if(force < 0f){
 				force = 0f;
 			}
